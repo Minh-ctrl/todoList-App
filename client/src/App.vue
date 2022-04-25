@@ -1,10 +1,12 @@
 <script setup>
-// composition vs options api
-import BubbleComponent from './components/BubbleComponent.vue'
+  import BobbleComponent from './components/BobbleComponent.vue';
+  let data = [{name:'Chat'}, {name: 'Camera'}, {name: 'Cleaning'}, {name: 'Mail'} , {name: "Study"}, {name:"Shopping"}, {name:"Pill"}];
 </script>
 
 <template>
-  <BubbleComponent/>
+  <div>
+    <BobbleComponent :svg='data'/>
+  </div>
 </template>
 <style>
 
