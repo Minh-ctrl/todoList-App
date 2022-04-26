@@ -7,14 +7,16 @@
   const  data= ref({today:{
     todo: [{
       action:'Talk to Mom',
-      timer: 50
-
+      timer: 50,
+      done: false,
       },{
-        action:'finish assignment',
+        action:'Finish assignment',
         timer: 50,
+        done: false,
       },
       {
-        action:'finish this project'
+        action:'Finish this project',
+        done: false,
       }
       ]
   }});
