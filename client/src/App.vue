@@ -6,16 +6,19 @@
   let svg = [{name:'Chat'}, {name: 'Camera'}, {name: 'Cleaning'}, {name: 'Mail'} , {name: "Study"}, {name:"Shopping"}, {name:"Pill"}];
   const  data= ref({today:{
     todo: [{
-      action:'Talk to Mom',
-      timer: 50,
-      done: false,
+        action:'Talk to Mom',
+        timer: 50,
+        due: Date.now().toLocaleString(),
+        done: false,
       },{
         action:'Finish assignment',
         timer: 50,
+        due: Date.now().toLocaleString('en-GB', { timeZone: 'UTC' }),
         done: false,
       },
       {
         action:'Finish this project',
+        due: Date.now().toLocaleString(),
         done: false,
       }
       ]
