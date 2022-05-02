@@ -2,11 +2,15 @@
 // import is es module
 // import {Document, Filter, MongoClient} from 'mongodb';
 import express, {Express, Request, Response } from 'express';
-
-const app = express()
-app.get('/', function (req: Request, res: Response) {
-    res.send('Hello World')
-});
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import router from './routers/input.routes';
+const app = express();
+app.use(cors());
+// read later what bodyParser actually does;
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
+app.use(router);
 app.listen(5000);
 // async function main () {
 //     const url = 'mongodb://127.0.0.1:27017';

@@ -1,38 +1,27 @@
 <script setup>
-  import {ref, reactive} from 'vue';
-  import BobbleComponent from './components/BobbleComponent.vue';
-  import Today from './components/Today.vue'
-  import dayjs from 'dayjs';  
-
-
-  let svg = [{name:'Chat'}, {name: 'Camera'}, {name: 'Cleaning'}, {name: 'Mail'} , {name: "Study"}, {name:"Shopping"}, {name:"Pill"}];
-  const  data= ref({today:{
-    todo: [{
-        action:'Talk to Mom',
-        timer: 50,
-        due: dayjs().format("DD/MM/YYYY"),
-        done: false,
-      },{
-        action:'Finish assignment',
-        timer: 50,
-        due: dayjs().format("DD/MM/YYYY"),
-        done: false,
-      },
-      {
-        action:'Finish this project',
-        due: dayjs().format("DD/MM/YYYY"),
-        done: false,
-      }
-      ]
-  }});
 </script>
 
 <template>
-  <div>
-    <BobbleComponent :svg='svg'/>
-    <Today :data="data"/>
-  </div>
+  <header>
+    <div>
+      <router-view></router-view>
+      <router-link to="/">Home</router-link>
+      <br>
+      <router-link to="/edit">Edit</router-link>
+    </div>
+  </header>
 </template>
 <style>
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
 
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
 </style>
