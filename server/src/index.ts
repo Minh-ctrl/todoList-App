@@ -1,23 +1,23 @@
 // require is common js 
 // import is es module
 // import {Document, Filter, MongoClient} from 'mongodb';
+import router from './routers/input.routes';
 import express, {Express, Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import router from './routers/input.routes';
+import {Document, Filter, MongoClient} from 'mongodb';
 const app = express();
 app.use(cors());
 // read later what bodyParser actually does;
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 app.use(router);
-app.listen(5000);
 // async function main () {
 //     const url = 'mongodb://127.0.0.1:27017';
 //     const client = new MongoClient(url);
 //     try{
 //         await client.connect();
-//         await deleteEverything(client);
+//         await readAll(client);
 //     }
 //     catch(e){
 //         console.error(e)
@@ -26,6 +26,14 @@ app.listen(5000);
 //         await client.close();
 //     }
 // };
+// const readAll = async (client : MongoClient) => {
+//     //telling server to find something ==> not async;
+//     //tell driver what to do with that, in this case node.js;
+//     //cursor analogy: ingredient to do something next;
+//     const res = client.db('todoList').collection('User').find();
+//     console.log(res.toArray());
+// }
+app.listen(5000);
 // const writeName = async (client: MongoClient) => {
 //     const res=  await client.db('todoList').collection('User').insertOne({
 //     name: 'tako'

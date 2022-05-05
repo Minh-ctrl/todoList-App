@@ -6,22 +6,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // require is common js 
 // import is es module
 // import {Document, Filter, MongoClient} from 'mongodb';
+const input_routes_1 = __importDefault(require("./routers/input.routes"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const input_routes_1 = __importDefault(require("./routers/input.routes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+// read later what bodyParser actually does;
 app.use(body_parser_1.default.urlencoded({ extended: true }));
 app.use(body_parser_1.default.json());
 app.use(input_routes_1.default);
-app.listen(5000);
 // async function main () {
 //     const url = 'mongodb://127.0.0.1:27017';
 //     const client = new MongoClient(url);
 //     try{
 //         await client.connect();
-//         await deleteEverything(client);
+//         await readAll(client);
 //     }
 //     catch(e){
 //         console.error(e)
@@ -30,6 +30,14 @@ app.listen(5000);
 //         await client.close();
 //     }
 // };
+// const readAll = async (client : MongoClient) => {
+//     //telling server to find something ==> not async;
+//     //tell driver what to do with that, in this case node.js;
+//     //cursor analogy: ingredient to do something next;
+//     const res = client.db('todoList').collection('User').find();
+//     console.log(res.toArray());
+// }
+app.listen(5000);
 // const writeName = async (client: MongoClient) => {
 //     const res=  await client.db('todoList').collection('User').insertOne({
 //     name: 'tako'

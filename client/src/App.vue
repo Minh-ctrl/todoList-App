@@ -1,15 +1,16 @@
 <script setup>
+  
 </script>
 
 <template>
-  <header>
     <div>
       <router-view></router-view>
       <router-link to="/">Home</router-link>
       <br>
       <router-link to="/edit">Edit</router-link>
+      <br>
+      <router-link to="/post">Post</router-link>
     </div>
-  </header>
 </template>
 <style>
 a,
