@@ -5,9 +5,9 @@
     const axios = inject('$axios');
     // const length = ref('');
     async function PostData(){
-        let res = await axios.post("http://localhost:5000/activity/2",{
+        let res = await axios.post("http://localhost:5000/addschedule",{
             activity: activity,
-        })
+        }).then((res)=>{console.log(res)});
         console.warn(res);
 }
     
