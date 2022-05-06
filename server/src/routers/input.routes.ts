@@ -6,12 +6,18 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const router = express.Router();
 
-router.get('/', function (req: Request, res: Response) {
+router.get('/getData', function (req: Request, res: Response) {
     res.send(
         data
     );
 });
-router.post('/addSchedule', urlencodedParser, function (req: Request, res: Response){
-    let data = {id: 211, name:'Jazz', activity:'something'};
+router.post('/addschedule',function (req: Request, res: Response){
+    const {activity}= req.body;
+    if(!activity){
+        res.status(418).send({message: 'No content'})
+    }
+    res.send({
+        activity: `you will be doing ${activity}`,
+    })
 })
 export default router;

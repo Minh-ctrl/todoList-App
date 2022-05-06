@@ -37,4 +37,9 @@ const readAll = (client) => __awaiter(void 0, void 0, void 0, function* () {
     const res = client.db('todoList').collection('User').find();
     exports.data = data = yield res.toArray();
 });
+const writeName = (client) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield client.db('todoList').collection('User').insertOne({
+        name: 'tako'
+    });
+});
 main();

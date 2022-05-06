@@ -5,7 +5,6 @@ import router from './routers/input.routes';
 import express, {Express, Request, Response } from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import {Document, Filter, MongoClient} from 'mongodb';
 const app = express();
 app.use(cors());
 // read later what bodyParser actually does;
