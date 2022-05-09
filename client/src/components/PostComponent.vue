@@ -6,7 +6,7 @@
     // const length = ref('');
     async function PostData(){
         let res = await axios.post("http://localhost:5000/addschedule",{
-            activity: activity,
+            activity: activity.value,
         }).then((res)=>{console.log(res)});
         console.warn(res);
 }

@@ -9,17 +9,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.writeName = exports.readAll = void 0;
-const readAll = (con) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = (yield con).db('todoList').collection('User').find();
-    return yield res.toArray();
-});
-exports.readAll = readAll;
-const writeName = (client, inputData) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield client.db('todoList').collection('User').insertOne({
-        work: inputData
+exports.checkCon = void 0;
+const mongodb_1 = require("mongodb");
+let con;
+function checkCon() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const url = 'mongodb://127.0.0.1:27017';
+        if (!con) {
+            con = new mongodb_1.MongoClient(url);
+            try {
+                return yield con.connect();
+            }
+            catch (e) {
+                console.log(e);
+            }
+        }
+        return con;
     });
-    console.log(res);
-    return res;
-});
-exports.writeName = writeName;
+}
+exports.checkCon = checkCon;

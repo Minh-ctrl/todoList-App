@@ -1,23 +1,42 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.inputData = void 0;
 const express_1 = __importDefault(require("express"));
 const getData_controller_1 = require("../controllers/getData.controller");
-const body_parser_1 = __importDefault(require("body-parser"));
-var urlencodedParser = body_parser_1.default.urlencoded({ extended: false });
+const checkCon_1 = require("../database/checkCon");
 const router = express_1.default.Router();
+let inputData;
+exports.inputData = inputData;
+console.log('routes running?');
 router.get('/getData', function (req, res) {
-    res.send(getData_controller_1.data);
+    return __awaiter(this, void 0, void 0, function* () {
+        let con = yield (0, checkCon_1.checkCon)();
+        res.send(yield (0, getData_controller_1.readAll)(con));
+    });
 });
 router.post('/addschedule', function (req, res) {
-    const { activity } = req.body;
-    if (!activity) {
-        res.status(418).send({ message: 'No content' });
-    }
-    res.send({
-        activity: `you will be doing ${activity}`,
+    return __awaiter(this, void 0, void 0, function* () {
+        let con = yield (0, checkCon_1.checkCon)();
+        const { activity } = req.body;
+        yield (0, getData_controller_1.writeName)(con, activity);
+        if (!activity) {
+            res.status(418).send({ message: 'No content' });
+        }
+        res.send({
+            activity: `you will be doing ${activity}`,
+        });
     });
 });
 exports.default = router;
