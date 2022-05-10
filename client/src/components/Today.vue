@@ -1,13 +1,22 @@
 <script setup>
-    import {ref, computed} from 'vue';
-    const props = defineProps(['data']);
-    const todos = props.data.today.todo;
+    import {ref, computed, reactive} from 'vue';
+    import axios from 'axios';
+    const todos = ref([]);
     let counter = ref(0);
+    async function fetchData(){
+        try {
+            const res = await axios.get('http://localhost:5000/getdata');
+            todos.value= res.data;
+            console.log(todos.value);
+        } catch (e) {
+            console.error(e);
+        }
+    } 
     const checked= (todo) =>{   
-
         todo.done = !todo.done; 
-        counter.value = todos.filter((todo)=>{return todo.done === true}).length;
-};
+        counter.value = todos.value.filter((todo)=>{return todo.done === true}).length;
+    };
+    fetchData();
 </script>
 <template>
     <div class="flex flex-col flex-nowrap">
@@ -20,7 +29,7 @@
         <div>
             <div v-for="todo in todos" :key="todo">
                 <input @click="checked(todo)" type="checkbox" class="m-2">
-                <label>{{todo.action}}</label>
+                <label>{{todo.work}}</label>
                 <label class="rounded-full" v-if="todo.due">[bell symbol] {{todo.due}}</label>
             </div>
         </div>
