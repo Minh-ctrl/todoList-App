@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inputData = void 0;
+//do you like being a single child.
 const express_1 = __importDefault(require("express"));
 const getData_controller_1 = require("../controllers/getData.controller");
 const checkCon_1 = require("../database/checkCon");
@@ -29,7 +30,8 @@ router.get('/getData', function (req, res) {
 router.post('/addschedule', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
-        const { activity } = req.body;
+        const activity = req.body;
+        // console.log(activity);
         yield (0, getData_controller_1.writeName)(con, activity);
         if (!activity) {
             res.status(418).send({ message: 'No content' });

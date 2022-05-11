@@ -1,21 +1,40 @@
-interface basedEvent {
-    title: string,
+interface routine {
+    user_id: Number,
+    routine_name: String,
+    Frequency: String,
+    Importance: String,
+    done: boolean
+}
+interface user {
+    id: Number,
+    name: String,
+    age: Number,
+}
+interface events {
+    name: String,
+    description: String,
     done: boolean,
-    description: string,
-    date: Date,
+    startDate: Date,
+    endDate: Date,
 }
-interface quickie extends basedEvent{
-    timeLimit: Date,
-}
-interface routine extends basedEvent{ 
-	category: "exercise" | "medicine", 
-	frequency: tfrequency,
-	importance: 1 | 2 | 3, 
-}
-interface goals {
-    objective: string,
-	reward: string,
-	frequency: tfrequency,
-	timeLimit: Date,
-}
-type tfrequency = "hourly" | "daily" | "weekly"| "monthly"
+// interface basedEvent {
+//     title: string,
+//     done: boolean,
+//     description: string,
+//     date: Date,
+// }
+// interface quickie extends basedEvent{
+//     timeLimit: Date,
+// }
+// interface routine extends basedEvent{ 
+// 	category: "exercise" | "medicine", 
+// 	frequency: tfrequency,
+// 	importance: 1 | 2 | 3, 
+// }
+// interface goals {
+//     objective: string,
+// 	reward: string,
+// 	frequency: tfrequency,
+// 	timeLimit: Date,
+// }
+// type tfrequency = "hourly" | "daily" | "weekly"| "monthly"

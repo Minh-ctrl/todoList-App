@@ -10,6 +10,8 @@
       <router-link to="/edit">Edit</router-link>
       <br>
       <router-link to="/post">Post</router-link>
+      <br>
+      <router-link to="/dailyedit">Daily Edit</router-link>
     </div>
 </template>
 <style>
