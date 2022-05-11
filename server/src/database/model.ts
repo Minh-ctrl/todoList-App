@@ -1,5 +1,22 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+export interface routine {
+    user_id: Number,
+    routine_name: String,
+    Frequency: String,
+    Importance: String,
+    done: boolean
+}
+export interface user {
+    id: Number,
+    name: String,
+    age: Number,
+}
+export interface events {
+    name: String,
+    description: String,
+    done: boolean,
+    startDate: Date,
+    endDate: Date,
+}
 // interface basedEvent {
 //     title: string,
 //     done: boolean,

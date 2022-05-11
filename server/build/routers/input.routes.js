@@ -21,23 +21,43 @@ const router = express_1.default.Router();
 let inputData;
 exports.inputData = inputData;
 console.log('routes running?');
-router.get('/getData', function (req, res) {
+router.get('/getroutine', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
-        res.send(yield (0, getData_controller_1.readAll)(con));
+        res.send(yield (0, getData_controller_1.readRoutine)(con));
     });
 });
-router.post('/addschedule', function (req, res) {
+router.get('/getUser', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
-        const activity = req.body;
-        // console.log(activity);
-        yield (0, getData_controller_1.writeName)(con, activity);
-        if (!activity) {
+        res.send(yield (0, getData_controller_1.readUser)(con));
+    });
+});
+router.post('/adduser', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        console.log('run?');
+        let con = yield (0, checkCon_1.checkCon)();
+        console.log(req.body);
+        // const user: user = req.body;
+        // await addUser(con, user);
+        // if(!user){
+        //     res.status(418).send({message: 'No content'})
+        // }
+        res.send({
+            type: 'run'
+        });
+    });
+});
+router.post('/addroutine', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let con = yield (0, checkCon_1.checkCon)();
+        const routine = req.body;
+        yield (0, getData_controller_1.addRoutine)(con, routine);
+        if (!routine) {
             res.status(418).send({ message: 'No content' });
         }
         res.send({
-            activity: `you will be doing ${activity}`,
+            activity: `the routine is ${routine}`,
         });
     });
 });

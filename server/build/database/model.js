@@ -1,22 +1,5 @@
-interface routine {
-    user_id: Number,
-    routine_name: String,
-    Frequency: String,
-    Importance: String,
-    done: boolean
-}
-interface user {
-    id: Number,
-    name: String,
-    age: Number,
-}
-interface events {
-    name: String,
-    description: String,
-    done: boolean,
-    startDate: Date,
-    endDate: Date,
-}
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 // interface basedEvent {
 //     title: string,
 //     done: boolean,

@@ -1,27 +1,46 @@
 //do you like being a single child.
 import express, {Express, Request, Response, Router } from 'express';
-import {writeName, readAll, updateWork} from '../controllers/getData.controller';
+import {readUser, readRoutine, addRoutine, addUser} from '../controllers/getData.controller';
 import { checkCon } from '../database/checkCon';
+import { routine, user } from '../database/model';
 
 const router = express.Router();
 let inputData:any;
 console.log('routes running?');
-router.get('/getData', async function (req: Request, res: Response) {
+router.get('/getroutine', async function (req: Request, res: Response) {
     let con = await checkCon();
     res.send(
-       await readAll(con)
+       await readRoutine(con)
     );
 });
-router.post('/addschedule',async function (req: Request, res: Response){
+router.get('/getUser', async function (req: Request, res: Response){
     let con = await checkCon();
-    const activity= req.body;
-    // console.log(activity);
-    await writeName(con, activity);
-    if(!activity){
+    res.send(
+        await readUser(con)
+    );
+})
+//having some trouble with type checking the incoming POST request, will need to read more about it later.
+router.post('/adduser', async function (req: Request, res: Response){
+    console.log('run?')
+    let con = await checkCon();
+    const user: user = req.body;
+    await addUser(con, user);
+    if(!user){
         res.status(418).send({message: 'No content'})
     }
     res.send({
-        activity: `you will be doing ${activity}`,
+        type: 'run'
+    })
+})
+router.post('/addroutine',async function (req: Request, res: Response){
+    let con = await checkCon();
+    const routine: routine = req.body;
+    await addRoutine(con, routine);
+    if(!routine){
+        res.status(418).send({message: 'No content'})
+    }
+    res.send({
+        activity: `the routine is ${routine}`,
     });
 });
 // router.post('/changeSchedule', async (req: Request, res: Response) =>{ 
