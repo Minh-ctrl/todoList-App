@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+exports.validation = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
 const readUser = (con) => __awaiter(void 0, void 0, void 0, function* () {
     const res = (yield con).db('todoList').collection('User').find();
     return yield res.toArray();
@@ -33,3 +33,18 @@ const addUser = (client, inputData) => __awaiter(void 0, void 0, void 0, functio
     });
 });
 exports.addUser = addUser;
+//validation function to check structure, have to abstract validation to work for each endpoint;
+const validation = (input) => {
+    //destructure the input
+    //what if you want to pass --> this is not an age field.
+    const userKey = ['id', 'name', 'age'];
+    if (userKey.every((value) => Object.keys(input).includes(value))) {
+        //TBD
+        for (const [key, value] of Object.entries(input)) {
+            console.log(typeof (value));
+        }
+        return true;
+    }
+    return false;
+};
+exports.validation = validation;

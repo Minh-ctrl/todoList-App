@@ -33,19 +33,21 @@ router.get('/getUser', function (req, res) {
         res.send(yield (0, getData_controller_1.readUser)(con));
     });
 });
+//having some trouble with type checking the incoming POST request, will need to read more about it later.
 router.post('/adduser', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log('run?');
         let con = yield (0, checkCon_1.checkCon)();
-        console.log(req.body);
-        // const user: user = req.body;
-        // await addUser(con, user);
-        // if(!user){
-        //     res.status(418).send({message: 'No content'})
-        // }
-        res.send({
-            type: 'run'
-        });
+        const user = req.body;
+        console.log((0, getData_controller_1.validation)(user));
+        if ((0, getData_controller_1.validation)(user)) {
+            yield (0, getData_controller_1.addUser)(con, user);
+            res.send({
+                type: 'run'
+            });
+        }
+        else {
+            res.status(418).send({ message: 'bad request' });
+        }
     });
 });
 router.post('/addroutine', function (req, res) {
