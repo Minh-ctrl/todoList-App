@@ -39,17 +39,22 @@ const keyValidation = (input) => {
     // this function doesn't test content of the body request
     //destructure the input.
     //what if you want to pass --> this is not an age field.
-    const userDataStructure = { 'id': 'string', 'name': 'string', 'age': 'number' };
-    const userKeys = Object.keys(userDataStructure);
-    const userVal = Object.values(userDataStructure);
+    const userDataStructure = { 'id': 'number', 'name': 'string', 'age': 'number' };
+    const userKeysDataStructure = Object.keys(userDataStructure);
+    const userValDataStructure = Object.values(userDataStructure).sort();
     const inputKeys = Object.keys(input);
-    console.log(userVal);
-    console.log(Object.keys(input));
-    const isMatchingTypeKeys = userKeys.every((value) => inputKeys.includes(value));
+    let userInputType = [];
+    // console.log(Object.keys(input).sort());
+    const isMatchingTypeKeys = userKeysDataStructure.every((value) => inputKeys.includes(value));
     if (isMatchingTypeKeys) {
         //TBD
-        //return other conditions, all the keys user missed etc.
-        return true;
+        for (const [key, value] of Object.entries(input)) {
+            // console.log(typeof(value));
+            userInputType.push(typeof (value));
+        }
+        if (userInputType.every((val, i) => val === userValDataStructure[i])) {
+            console.log('this works');
+        }
     }
     return false;
 };
