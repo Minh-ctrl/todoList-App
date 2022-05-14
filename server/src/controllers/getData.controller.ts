@@ -24,12 +24,16 @@ const addUser = async (client: MongoClient, inputData: user) => {
 };
 //validation function to check structure, have to abstract validation to work for each endpoint;
 //validates the incoming object from POST request body.
-const Keyvalidation = (input: Record<string, any>) => {
+const keyValidation = (input: Record<string, any>) => {
     // this function doesn't test content of the body request
     //destructure the input.
     //what if you want to pass --> this is not an age field.
-    const userKeys = ['id','name','age'];
+    const userDataStructure = {'id': 'string', 'name': 'string', 'age': 'number'};
+    const userKeys =  Object.keys(userDataStructure);
+    const userVal = Object.values(userDataStructure);
     const inputKeys = Object.keys(input);    
+    console.log(userVal);
+    console.log(Object.keys(input));
     const isMatchingTypeKeys = userKeys.every((value) => inputKeys.includes(value));
     if (isMatchingTypeKeys) {
         //TBD
@@ -49,4 +53,4 @@ const Keyvalidation = (input: Record<string, any>) => {
 //     const res = await client.db("work").collection("work").updateMany(work,{$set: {newWork}});
 //     return res; 
 // }
-export {readUser, readRoutine, addRoutine, addUser, Keyvalidation};
+export {readUser, readRoutine, addRoutine, addUser, keyValidation};

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.validation = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+exports.keyValidation = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
 const readUser = (con) => __awaiter(void 0, void 0, void 0, function* () {
     const res = (yield con).db('todoList').collection('User').find();
     return yield res.toArray();
@@ -34,17 +34,23 @@ const addUser = (client, inputData) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.addUser = addUser;
 //validation function to check structure, have to abstract validation to work for each endpoint;
-const validation = (input) => {
-    //destructure the input
+//validates the incoming object from POST request body.
+const keyValidation = (input) => {
+    // this function doesn't test content of the body request
+    //destructure the input.
     //what if you want to pass --> this is not an age field.
-    const userKey = ['id', 'name', 'age'];
-    if (userKey.every((value) => Object.keys(input).includes(value))) {
+    const userDataStructure = { 'id': 'string', 'name': 'string', 'age': 'number' };
+    const userKeys = Object.keys(userDataStructure);
+    const userVal = Object.values(userDataStructure);
+    const inputKeys = Object.keys(input);
+    console.log(userVal);
+    console.log(Object.keys(input));
+    const isMatchingTypeKeys = userKeys.every((value) => inputKeys.includes(value));
+    if (isMatchingTypeKeys) {
         //TBD
-        for (const [key, value] of Object.entries(input)) {
-            console.log(typeof (value));
-        }
+        //return other conditions, all the keys user missed etc.
         return true;
     }
     return false;
 };
-exports.validation = validation;
+exports.keyValidation = keyValidation;

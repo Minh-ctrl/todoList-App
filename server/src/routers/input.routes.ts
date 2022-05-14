@@ -1,6 +1,6 @@
 //do you like being a single child.
 import express, {Express, Request, Response, Router } from 'express';
-import {readUser, readRoutine, addRoutine, addUser, Keyvalidation} from '../controllers/getData.controller';
+import {readUser, readRoutine, addRoutine, addUser, keyValidation} from '../controllers/getData.controller';
 import { checkCon } from '../database/checkCon';
 import { routine, user } from '../database/model';
 
@@ -13,7 +13,7 @@ router.get('/getroutine', async function (req: Request, res: Response) {
        await readRoutine(con)
     );
 });
-router.get('/getUser', async function (req: Request, res: Response){
+router.get('/getuser', async function (req: Request, res: Response){
     let con = await checkCon();
     res.send(
         await readUser(con)
@@ -24,7 +24,7 @@ router.get('/getUser', async function (req: Request, res: Response){
 router.post('/adduser', async function (req: Request, res: Response){
     let con = await checkCon();
     const user = req.body as user;
-    if(Keyvalidation(user)){
+    if(keyValidation(user)){
         await addUser(con, user);
         res.send({
             type: 'run'
