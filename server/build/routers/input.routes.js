@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inputData = void 0;
-//do you like being a single child.
 const express_1 = __importDefault(require("express"));
 const getData_controller_1 = require("../controllers/getData.controller");
 const checkCon_1 = require("../database/checkCon");
@@ -39,10 +38,10 @@ router.post('/adduser', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
         const user = req.body;
-        if ((0, getData_controller_1.keyValidation)(user)) {
+        if ((0, getData_controller_1.userRouteValidation)(user)) {
             yield (0, getData_controller_1.addUser)(con, user);
             res.send({
-                type: 'run'
+                message: 'run'
             });
         }
         else {
@@ -54,13 +53,21 @@ router.post('/addroutine', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
         const routine = req.body;
-        yield (0, getData_controller_1.addRoutine)(con, routine);
-        if (!routine) {
-            res.status(418).send({ message: 'No content' });
+        if ((0, getData_controller_1.routineRouteValidation)(routine)) {
+            yield (0, getData_controller_1.addRoutine)(con, routine);
+            res.send({
+                message: 'routine has been added'
+            });
         }
-        res.send({
-            activity: `the routine is ${routine}`,
-        });
+        else {
+            res.status(418).send({ message: 'bad request' });
+        }
+        // if(!routine){
+        //     res.status(418).send({message: 'No content'})
+        // }
+        // res.send({
+        //     activity: `the routine is ${routine}`,
+        // });
     });
 });
 exports.default = router;

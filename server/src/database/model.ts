@@ -1,8 +1,8 @@
 export interface routine {
     user_id: Number,
     routine_name: String,
-    Frequency: String,
-    Importance: String,
+    frequency: String,
+    importance: String,
     done: boolean
 }
 export interface user {

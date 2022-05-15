@@ -1,6 +1,5 @@
-//do you like being a single child.
 import express, {Express, Request, Response, Router } from 'express';
-import {readUser, readRoutine, addRoutine, addUser, keyValidation} from '../controllers/getData.controller';
+import {readUser, readRoutine, addRoutine, addUser, userRouteValidation, routineRouteValidation} from '../controllers/getData.controller';
 import { checkCon } from '../database/checkCon';
 import { routine, user } from '../database/model';
 
@@ -24,10 +23,10 @@ router.get('/getuser', async function (req: Request, res: Response){
 router.post('/adduser', async function (req: Request, res: Response){
     let con = await checkCon();
     const user = req.body as user;
-    if(keyValidation(user)){
+    if(userRouteValidation(user)){
         await addUser(con, user);
         res.send({
-            type: 'run'
+            message: 'run'
         })
     }
     else{
@@ -36,14 +35,22 @@ router.post('/adduser', async function (req: Request, res: Response){
 })
 router.post('/addroutine',async function (req: Request, res: Response){
     let con = await checkCon();
-    const routine: routine = req.body;
-    await addRoutine(con, routine);
-    if(!routine){
-        res.status(418).send({message: 'No content'})
+    const routine= req.body as routine;
+    if(routineRouteValidation(routine)){
+        await addRoutine(con,routine);
+        res.send({
+            message: 'routine has been added'
+        })
     }
-    res.send({
-        activity: `the routine is ${routine}`,
-    });
+    else{
+        res.status(418).send({message: 'bad request'})
+    }
+    // if(!routine){
+    //     res.status(418).send({message: 'No content'})
+    // }
+    // res.send({
+    //     activity: `the routine is ${routine}`,
+    // });
 });
 // router.post('/changeSchedule', async (req: Request, res: Response) =>{ 
 //     let con = await checkCon();

@@ -24,30 +24,77 @@ const addUser = async (client: MongoClient, inputData: user) => {
 };
 //validation function to check structure, have to abstract validation to work for each endpoint;
 //validates the incoming object from POST request body.
-const keyValidation = (input: Record<string, any>) => {
+
+
+let InputKeys: Array<String> = [];
+
+const userDataStructure = 
+{
+    'id': 'number',
+    'name': 'string', 
+    'age': 'number'
+};
+const routineDataStructure  = 
+{
+    'user_id': 'number', 
+    "routine_name": "string",
+    "frequency": "string",
+    "importance": "string",
+    "done" : "boolean",
+}
+
+const typeValidation = (input: Record<string, any>) => {
     // this function doesn't test content of the body request
     //destructure the input.
     //what if you want to pass --> this is not an age field.
-    const userDataStructure = {'id': 'number', 'name': 'string', 'age': 'number'};
-    const userKeysDataStructure =  Object.keys(userDataStructure);
-    const userValDataStructure = Object.values(userDataStructure).sort();
-    const inputKeys = Object.keys(input);    
-    let userInputType: Array<string> = [];
-    // console.log(Object.keys(input).sort());
+    let InputType: Array<string> = [];
+    //validation for user route;
+    InputKeys = Object.keys(input);    
+    for (const [key, value] of Object.entries(input)){
+        InputType.push(typeof(value));
+    }
+    return InputType;
+};
 
-    const isMatchingTypeKeys = userKeysDataStructure.every((value) => inputKeys.includes(value));
-    if (isMatchingTypeKeys) {
-        //TBD
-        for (const [key, value] of Object.entries(input)){
-            // console.log(typeof(value));
-            userInputType.push(typeof(value));
-        }
-        if(userInputType.every((val, i) => val ===  userValDataStructure[i])){
-            console.log('this works');
+const userRouteValidation = (input:Record<string,any>) => { 
+    const userKeysDataStructure =  Object.keys(userDataStructure);
+    const userTypeDataStructure = Object.values(userDataStructure).sort();
+
+    const InputType = typeValidation(input).sort();
+    const isMatchingTypeKeys = userKeysDataStructure.every((val) => InputKeys.includes(val));
+    console.log(InputType);
+    console.log(userTypeDataStructure);
+    if(isMatchingTypeKeys){
+        if (InputType.every((val, i) => val ===  userTypeDataStructure[i])) {
+            return true;
         }
     }
-    return false;
+    else{
+        return false;
+    }
 };
+const routineRouteValidation = (input:Record<string,any>) => { 
+    const routineKeysDataStructure = Object.keys(routineDataStructure);
+    const routineTypeDataStructure = Object.values(routineDataStructure).sort();
+    const InputType= typeValidation(input).sort();
+
+    const isMatchingTypeKeys = routineKeysDataStructure.every((val) => InputKeys.includes(val));
+    console.log(routineKeysDataStructure);
+    console.log('br')
+    console.log(routineTypeDataStructure);
+    console.log('br')
+    console.log(InputType);
+    console.log('br')
+    console.log(isMatchingTypeKeys);
+    if(isMatchingTypeKeys){
+        if(InputType.every((val,i)=> val === routineTypeDataStructure[i])) { 
+            return true;
+        }
+    }
+    else{
+        return false;
+    }
+}
 // const updateName= async (client: MongoClient, name: Filter<Document>, newName: string) => {
 //     await client.db("todoList").collection('User').updateMany(name, {$set: {name: newName}} );
 //     console.log(`changed name from ${name.name} to ${newName}`);
@@ -56,4 +103,4 @@ const keyValidation = (input: Record<string, any>) => {
 //     const res = await client.db("work").collection("work").updateMany(work,{$set: {newWork}});
 //     return res; 
 // }
-export {readUser, readRoutine, addRoutine, addUser, keyValidation};
+export {readUser, readRoutine, addRoutine, addUser, userRouteValidation, routineRouteValidation};

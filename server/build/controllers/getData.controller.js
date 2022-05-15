@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.keyValidation = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+exports.routineRouteValidation = exports.userRouteValidation = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
 const readUser = (con) => __awaiter(void 0, void 0, void 0, function* () {
     const res = (yield con).db('todoList').collection('User').find();
     return yield res.toArray();
@@ -35,27 +35,67 @@ const addUser = (client, inputData) => __awaiter(void 0, void 0, void 0, functio
 exports.addUser = addUser;
 //validation function to check structure, have to abstract validation to work for each endpoint;
 //validates the incoming object from POST request body.
-const keyValidation = (input) => {
+let InputKeys = [];
+const userDataStructure = {
+    'id': 'number',
+    'name': 'string',
+    'age': 'number'
+};
+const routineDataStructure = {
+    'user_id': 'number',
+    "routine_name": "string",
+    "frequency": "string",
+    "importance": "string",
+    "done": "boolean",
+};
+const typeValidation = (input) => {
     // this function doesn't test content of the body request
     //destructure the input.
     //what if you want to pass --> this is not an age field.
-    const userDataStructure = { 'id': 'number', 'name': 'string', 'age': 'number' };
+    let InputType = [];
+    //validation for user route;
+    InputKeys = Object.keys(input);
+    for (const [key, value] of Object.entries(input)) {
+        InputType.push(typeof (value));
+    }
+    return InputType;
+};
+const userRouteValidation = (input) => {
     const userKeysDataStructure = Object.keys(userDataStructure);
-    const userValDataStructure = Object.values(userDataStructure).sort();
-    const inputKeys = Object.keys(input);
-    let userInputType = [];
-    // console.log(Object.keys(input).sort());
-    const isMatchingTypeKeys = userKeysDataStructure.every((value) => inputKeys.includes(value));
+    const userTypeDataStructure = Object.values(userDataStructure).sort();
+    const InputType = typeValidation(input).sort();
+    const isMatchingTypeKeys = userKeysDataStructure.every((val) => InputKeys.includes(val));
+    console.log(InputType);
+    console.log(userTypeDataStructure);
     if (isMatchingTypeKeys) {
-        //TBD
-        for (const [key, value] of Object.entries(input)) {
-            // console.log(typeof(value));
-            userInputType.push(typeof (value));
-        }
-        if (userInputType.every((val, i) => val === userValDataStructure[i])) {
-            console.log('this works');
+        if (InputType.every((val, i) => val === userTypeDataStructure[i])) {
+            return true;
         }
     }
-    return false;
+    else {
+        return false;
+    }
 };
-exports.keyValidation = keyValidation;
+exports.userRouteValidation = userRouteValidation;
+const routineRouteValidation = (input) => {
+    const routineKeysDataStructure = Object.keys(routineDataStructure);
+    const routineTypeDataStructure = Object.values(routineDataStructure).sort();
+    const InputType = typeValidation(input).sort();
+    const isMatchingTypeKeys = routineKeysDataStructure.every((val) => InputKeys.includes(val));
+    console.log(routineKeysDataStructure);
+    console.log('br');
+    console.log(routineTypeDataStructure);
+    console.log('br');
+    console.log(InputType);
+    console.log('br');
+    console.log(isMatchingTypeKeys);
+    if (isMatchingTypeKeys) {
+        if (InputType.every((val, i) => val === routineTypeDataStructure[i])) {
+            return true;
+        }
+    }
+    else {
+        return false;
+    }
+};
+exports.routineRouteValidation = routineRouteValidation;
