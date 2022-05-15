@@ -82,13 +82,6 @@ const routineRouteValidation = (input) => {
     const routineTypeDataStructure = Object.values(routineDataStructure).sort();
     const InputType = typeValidation(input).sort();
     const isMatchingTypeKeys = routineKeysDataStructure.every((val) => InputKeys.includes(val));
-    console.log(routineKeysDataStructure);
-    console.log('br');
-    console.log(routineTypeDataStructure);
-    console.log('br');
-    console.log(InputType);
-    console.log('br');
-    console.log(isMatchingTypeKeys);
     if (isMatchingTypeKeys) {
         if (InputType.every((val, i) => val === routineTypeDataStructure[i])) {
             return true;
