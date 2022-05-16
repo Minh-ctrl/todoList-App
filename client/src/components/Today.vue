@@ -5,7 +5,7 @@
     let counter = ref(0);
     async function fetchData(){
         try {
-            const res = await axios.get('http://localhost:5000/getdata');
+            const res = await axios.get('http://localhost:5000/getuser');
             todos.value= res.data;
             console.log(todos.value);
         } catch (e) {

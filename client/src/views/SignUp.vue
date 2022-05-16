@@ -1,11 +1,11 @@
 <script setup>
-import PostComponent from '../components/PostComponent.vue';
+    import SignUp from '../components/SignUp.vue';
 </script>
 <template>
     <div>
         <h1>
             PostComponent
         </h1>
-        <PostComponent/>
+        <SignUp/>
     </div>
 </template>
