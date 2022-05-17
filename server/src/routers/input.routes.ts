@@ -1,5 +1,6 @@
 import express, {Express, Request, Response, Router } from 'express';
-import {readUser, readRoutine, addRoutine, addUser, userRouteValidation, routineRouteValidation} from '../controllers/getData.controller';
+import {readUser, readRoutine, addRoutine, addUser} from '../controllers/getData.controller';
+import { userRouteValidation, routineRouteValidation} from '../controllers/Validation.controller';
 import { checkCon } from '../database/checkCon';
 import { routine, user } from '../database/model';
 
@@ -32,7 +33,7 @@ router.post('/adduser', async function (req: Request, res: Response){
     else{
         res.status(418).send({message: 'bad request'})
     }
-})
+});
 router.post('/addroutine',async function (req: Request, res: Response){
     let con = await checkCon();
     const routine= req.body as routine;
@@ -45,12 +46,6 @@ router.post('/addroutine',async function (req: Request, res: Response){
     else{
         res.status(418).send({message: 'bad request'})
     }
-    // if(!routine){
-    //     res.status(418).send({message: 'No content'})
-    // }
-    // res.send({
-    //     activity: `the routine is ${routine}`,
-    // });
 });
 // router.post('/changeSchedule', async (req: Request, res: Response) =>{ 
 //     let con = await checkCon();

@@ -13,9 +13,14 @@ export interface user {
 export interface events {
     name: String,
     description: String,
-    done: boolean,
+    done: Boolean,
     startDate: Date,
     endDate: Date,
+}
+export interface today { 
+    name: String,
+    description: String, 
+    done: Boolean,
 }
 // interface basedEvent {
 //     title: string,

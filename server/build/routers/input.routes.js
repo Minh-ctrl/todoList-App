@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.inputData = void 0;
 const express_1 = __importDefault(require("express"));
 const getData_controller_1 = require("../controllers/getData.controller");
+const Validation_controller_1 = require("../controllers/Validation.controller");
 const checkCon_1 = require("../database/checkCon");
 const router = express_1.default.Router();
 let inputData;
@@ -38,7 +39,7 @@ router.post('/adduser', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
         const user = req.body;
-        if ((0, getData_controller_1.userRouteValidation)(user)) {
+        if ((0, Validation_controller_1.userRouteValidation)(user)) {
             yield (0, getData_controller_1.addUser)(con, user);
             res.send({
                 message: 'run'
@@ -53,7 +54,7 @@ router.post('/addroutine', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
         const routine = req.body;
-        if ((0, getData_controller_1.routineRouteValidation)(routine)) {
+        if ((0, Validation_controller_1.routineRouteValidation)(routine)) {
             yield (0, getData_controller_1.addRoutine)(con, routine);
             res.send({
                 message: 'routine has been added'
@@ -62,12 +63,6 @@ router.post('/addroutine', function (req, res) {
         else {
             res.status(418).send({ message: 'bad request' });
         }
-        // if(!routine){
-        //     res.status(418).send({message: 'No content'})
-        // }
-        // res.send({
-        //     activity: `the routine is ${routine}`,
-        // });
     });
 });
 exports.default = router;
