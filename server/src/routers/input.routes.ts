@@ -1,5 +1,5 @@
 import express, {Express, Request, Response, Router } from 'express';
-import {readUser, readRoutine, readToday , addRoutine, addUser, addToday} from '../controllers/getData.controller';
+import {readUser, readRoutine, readToday , addRoutine, addUser, addToday, deleteToday, UpdateToday} from '../controllers/getData.controller';
 import { userRouteValidation, routineRouteValidation, todayRouteValidation} from '../controllers/Validation.controller';
 import { checkCon } from '../database/checkCon';
 import { routine, today, user } from '../database/model';
@@ -27,6 +27,7 @@ router.get('/gettoday', async function (req: Request, res: Response){
 })
 //having some trouble with type checking the incoming POST request, will need to read more about it later.
 //define types statically
+//add database
 router.post('/adduser', async function (req: Request, res: Response){
     let con = await checkCon();
     const user = req.body as user;
@@ -66,6 +67,14 @@ router.post('/addtoday', async function (req: Request, res: Response){
     else{
         res.status(418).send({message:' bad request'});
     }
+})
+
+//update & delete
+router.post('/deletetoday', async function (req: Request, res: Response){
+    let con = await checkCon();
+    const data = req.body;
+    await UpdateToday(con, data.activity, {done: true});
+    await deleteToday(con);
 })
 export {inputData};
 export default router;

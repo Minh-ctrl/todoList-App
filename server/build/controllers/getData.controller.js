@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.readToday = exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+exports.deleteToday = exports.UpdateToday = exports.readToday = exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
 const readUser = (con) => __awaiter(void 0, void 0, void 0, function* () {
     const res = (yield con).db('todoList').collection('User').find();
     return yield res.toArray();
@@ -44,3 +44,16 @@ const addToday = (client, inputData) => __awaiter(void 0, void 0, void 0, functi
     });
 });
 exports.addToday = addToday;
+const UpdateToday = (client, activityName, newData) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('this run? update part');
+    const res = yield client.db("todoList").collection('Today').updateOne({ activity: activityName }, { $set: newData });
+    console.log('this run? update part 2');
+});
+exports.UpdateToday = UpdateToday;
+const deleteToday = (client) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log('this run? delete part');
+    const res = yield client.db('todoList').collection('Today').deleteOne({
+        done: true,
+    });
+});
+exports.deleteToday = deleteToday;

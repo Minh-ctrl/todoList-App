@@ -41,6 +41,7 @@ router.get('/gettoday', function (req, res) {
 });
 //having some trouble with type checking the incoming POST request, will need to read more about it later.
 //define types statically
+//add database
 router.post('/adduser', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
@@ -85,6 +86,15 @@ router.post('/addtoday', function (req, res) {
         else {
             res.status(418).send({ message: ' bad request' });
         }
+    });
+});
+//update & delete
+router.post('/deletetoday', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let con = yield (0, checkCon_1.checkCon)();
+        const data = req.body;
+        yield (0, getData_controller_1.UpdateToday)(con, data.activity, { done: true });
+        yield (0, getData_controller_1.deleteToday)(con);
     });
 });
 exports.default = router;
