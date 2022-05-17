@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.routineRouteValidation = exports.userRouteValidation = void 0;
+exports.todayRouteValidation = exports.routineRouteValidation = exports.userRouteValidation = void 0;
 let InputKeys = [];
 const userDataStructure = {
     'id': 'number',
@@ -9,10 +9,16 @@ const userDataStructure = {
 };
 const routineDataStructure = {
     'user_id': 'number',
-    "routine_name": "string",
+    "activity": "string",
     "frequency": "string",
     "importance": "string",
     "done": "boolean",
+};
+const todayDataStructure = {
+    'activity': 'string',
+    'description': 'string',
+    'done': 'boolean',
+    'id': 'number',
 };
 const typeValidation = (input) => {
     // this function doesn't test content of the body request
@@ -58,3 +64,18 @@ const routineRouteValidation = (input) => {
     }
 };
 exports.routineRouteValidation = routineRouteValidation;
+const todayRouteValidation = (input) => {
+    const todayKeysDataStructure = Object.keys(todayDataStructure);
+    const todayTypeDataStructure = Object.values(todayDataStructure).sort();
+    const InputType = typeValidation(input).sort();
+    const isMatchingTypeKeys = todayKeysDataStructure.every((val) => InputKeys.includes(val));
+    if (isMatchingTypeKeys) {
+        if (InputType.every((val, i) => val === todayTypeDataStructure[i])) {
+            return true;
+        }
+    }
+    else {
+        return false;
+    }
+};
+exports.todayRouteValidation = todayRouteValidation;

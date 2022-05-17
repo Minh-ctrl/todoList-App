@@ -1,6 +1,6 @@
 export interface routine {
     user_id: Number,
-    routine_name: String,
+    activity: String,
     frequency: String,
     importance: String,
     done: boolean
@@ -18,9 +18,10 @@ export interface events {
     endDate: Date,
 }
 export interface today { 
-    name: String,
+    activity: String,
     description: String, 
     done: Boolean,
+    id: Number,
 }
 // interface basedEvent {
 //     title: string,

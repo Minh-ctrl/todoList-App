@@ -40,4 +40,4 @@ const addToday = async (client: MongoClient, inputData: today) => {
 //     const res = await client.db("work").collection("work").updateMany(work,{$set: {newWork}});
 //     return res; 
 // }
-export {readUser, readRoutine, addRoutine, addUser};
+export {readUser, readRoutine, addRoutine, addUser, addToday};

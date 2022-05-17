@@ -9,12 +9,19 @@ const userDataStructure =
 const routineDataStructure  = 
 {
     'user_id': 'number', 
-    "routine_name": "string",
+    "activity": "string",
     "frequency": "string",
     "importance": "string",
     "done" : "boolean",
 }
 
+const todayDataStructure = 
+{ 
+    'activity': 'string',
+    'description': 'string',
+    'done': 'boolean',
+    'id': 'number',
+}
 const typeValidation = (input: Record<string, any>) => {
     // this function doesn't test content of the body request
     //destructure the input.
@@ -60,5 +67,21 @@ const routineRouteValidation = (input:Record<string,any>) => {
         return false;
     }
 }
+const todayRouteValidation = (input:Record<string, any>) => { 
+    const todayKeysDataStructure = Object.keys(todayDataStructure);
+    const todayTypeDataStructure = Object.values(todayDataStructure).sort();
 
-export { userRouteValidation, routineRouteValidation}
+    const InputType = typeValidation(input).sort();
+    
+    const isMatchingTypeKeys = todayKeysDataStructure.every((val) => InputKeys.includes(val));
+    if(isMatchingTypeKeys) {
+        if(InputType.every((val, i) => val === todayTypeDataStructure[i])){
+            return true;
+        }
+    }
+    else{
+        return false;
+    }
+}
+
+export { userRouteValidation, routineRouteValidation, todayRouteValidation}

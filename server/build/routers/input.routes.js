@@ -65,4 +65,20 @@ router.post('/addroutine', function (req, res) {
         }
     });
 });
+router.post('/addtoday', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let con = yield (0, checkCon_1.checkCon)();
+        const today = req.body;
+        if ((0, Validation_controller_1.todayRouteValidation)(today)) {
+            yield (0, getData_controller_1.addToday)(con, today);
+            res.send({
+                message: 'sent data',
+                today
+            });
+        }
+        else {
+            res.status(418).send({ message: ' bad request' });
+        }
+    });
+});
 exports.default = router;

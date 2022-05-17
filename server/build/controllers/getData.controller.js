@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
 const readUser = (con) => __awaiter(void 0, void 0, void 0, function* () {
     const res = (yield con).db('todoList').collection('User').find();
     return yield res.toArray();
@@ -38,3 +38,4 @@ const addToday = (client, inputData) => __awaiter(void 0, void 0, void 0, functi
         inputData
     });
 });
+exports.addToday = addToday;

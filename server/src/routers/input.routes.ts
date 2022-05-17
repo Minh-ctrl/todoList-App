@@ -1,8 +1,8 @@
 import express, {Express, Request, Response, Router } from 'express';
-import {readUser, readRoutine, addRoutine, addUser} from '../controllers/getData.controller';
-import { userRouteValidation, routineRouteValidation} from '../controllers/Validation.controller';
+import {readUser, readRoutine, addRoutine, addUser, addToday} from '../controllers/getData.controller';
+import { userRouteValidation, routineRouteValidation, todayRouteValidation} from '../controllers/Validation.controller';
 import { checkCon } from '../database/checkCon';
-import { routine, user } from '../database/model';
+import { routine, today, user } from '../database/model';
 
 const router = express.Router();
 let inputData:any;
@@ -47,10 +47,19 @@ router.post('/addroutine',async function (req: Request, res: Response){
         res.status(418).send({message: 'bad request'})
     }
 });
-// router.post('/changeSchedule', async (req: Request, res: Response) =>{ 
-//     let con = await checkCon();
-//     const {newWork}= req.body;
-//     await updateWork(con, req, newWork)
-// })
+router.post('/addtoday', async function (req: Request, res: Response){
+    let con = await checkCon();
+    const today = req.body as today;
+    if(todayRouteValidation(today)){
+        await addToday(con , today);
+        res.send({
+            message: 'sent data',
+            today
+        })
+    }
+    else{
+        res.status(418).send({message:' bad request'});
+    }
+})
 export {inputData};
 export default router;
