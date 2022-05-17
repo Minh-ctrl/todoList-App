@@ -1,6 +1,7 @@
 <script setup>
   import {ref, reactive} from 'vue';
   import BobbleComponent from '../components/BobbleComponent.vue';
+  import Routine from '../components/Routine.vue';
   import Today from '../components/Today.vue';
   import dayjs from 'dayjs';  
   
@@ -9,6 +10,7 @@
 <template>
     <div class="Home">
         <BobbleComponent :svg='svg'/>
+        <Routine/>
         <Today/>
     </div>
 </template>
