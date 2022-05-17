@@ -1,5 +1,5 @@
 import express, {Express, Request, Response, Router } from 'express';
-import {readUser, readRoutine, addRoutine, addUser, addToday} from '../controllers/getData.controller';
+import {readUser, readRoutine, readToday , addRoutine, addUser, addToday} from '../controllers/getData.controller';
 import { userRouteValidation, routineRouteValidation, todayRouteValidation} from '../controllers/Validation.controller';
 import { checkCon } from '../database/checkCon';
 import { routine, today, user } from '../database/model';
@@ -18,6 +18,12 @@ router.get('/getuser', async function (req: Request, res: Response){
     res.send(
         await readUser(con)
     );
+})
+router.get('/gettoday', async function (req: Request, res: Response){
+    let con = await checkCon();
+    res.send(
+        await readToday(con)
+    )
 })
 //having some trouble with type checking the incoming POST request, will need to read more about it later.
 //define types statically

@@ -6,9 +6,13 @@ import { type } from 'os';
 const readUser = async (con : MongoClient) => {
     const res = (await con).db('todoList').collection('User').find();
     return await res.toArray();
-};
+}
 const readRoutine = async (con : MongoClient) => {
     const res = (await con).db('todoList').collection('routine').find();
+    return await res.toArray();
+}
+const readToday = async ( con: MongoClient) => {
+    const res = (await con).db('todoList').collection('Today').find();
     return await res.toArray();
 }
 const addRoutine = async (client: MongoClient, inputData: routine) => {
@@ -40,4 +44,4 @@ const addToday = async (client: MongoClient, inputData: today) => {
 //     const res = await client.db("work").collection("work").updateMany(work,{$set: {newWork}});
 //     return res; 
 // }
-export {readUser, readRoutine, addRoutine, addUser, addToday};
+export {readUser, readRoutine, addRoutine, addUser, addToday, readToday};

@@ -33,6 +33,12 @@ router.get('/getuser', function (req, res) {
         res.send(yield (0, getData_controller_1.readUser)(con));
     });
 });
+router.get('/gettoday', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let con = yield (0, checkCon_1.checkCon)();
+        res.send(yield (0, getData_controller_1.readToday)(con));
+    });
+});
 //having some trouble with type checking the incoming POST request, will need to read more about it later.
 //define types statically
 router.post('/adduser', function (req, res) {

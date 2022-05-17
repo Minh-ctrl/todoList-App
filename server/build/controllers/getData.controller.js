@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+exports.readToday = exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
 const readUser = (con) => __awaiter(void 0, void 0, void 0, function* () {
     const res = (yield con).db('todoList').collection('User').find();
     return yield res.toArray();
@@ -20,6 +20,11 @@ const readRoutine = (con) => __awaiter(void 0, void 0, void 0, function* () {
     return yield res.toArray();
 });
 exports.readRoutine = readRoutine;
+const readToday = (con) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = (yield con).db('todoList').collection('Today').find();
+    return yield res.toArray();
+});
+exports.readToday = readToday;
 const addRoutine = (client, inputData) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield client.db('todoList').collection('routine').insertOne({
         inputData
