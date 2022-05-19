@@ -76,6 +76,8 @@ router.post('/addtoday', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
         const today = req.body;
+        // console.log(today);
+        console.log((0, Validation_controller_1.todayRouteValidation)(today));
         if ((0, Validation_controller_1.todayRouteValidation)(today)) {
             yield (0, getData_controller_1.addToday)(con, today);
             res.send({
@@ -93,8 +95,16 @@ router.post('/deletetoday', function (req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         let con = yield (0, checkCon_1.checkCon)();
         const data = req.body;
-        yield (0, getData_controller_1.UpdateToday)(con, data.activity, { done: true });
-        yield (0, getData_controller_1.deleteToday)(con);
+        try {
+            yield (0, getData_controller_1.UpdateToday)(con, data.activity);
+            yield (0, getData_controller_1.deleteToday)(con);
+            res.send({
+                message: 'this runs'
+            });
+        }
+        catch (e) {
+            console.log(e);
+        }
     });
 });
 exports.default = router;
