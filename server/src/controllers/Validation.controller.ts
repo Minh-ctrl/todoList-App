@@ -72,7 +72,6 @@ const todayRouteValidation = (input:Record<string, any>) => {
     const todayTypeDataStructure = Object.values(todayDataStructure).sort();
 
     const InputType = typeValidation(input).sort();
-    
     const isMatchingTypeKeys = todayKeysDataStructure.every((val) => InputKeys.includes(val));
     if(isMatchingTypeKeys) {
         if(InputType.every((val, i) => val === todayTypeDataStructure[i])){

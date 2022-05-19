@@ -26,33 +26,26 @@ const readToday = (con) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.readToday = readToday;
 const addRoutine = (client, inputData) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield client.db('todoList').collection('routine').insertOne({
-        inputData
-    });
+    const res = yield client.db('todoList').collection('routine').insertOne(inputData);
     return res;
 });
 exports.addRoutine = addRoutine;
 const addUser = (client, inputData) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield client.db('todoList').collection('User').insertOne({
-        inputData
-    });
+    const res = yield client.db('todoList').collection('User').insertOne(inputData);
 });
 exports.addUser = addUser;
 const addToday = (client, inputData) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield client.db('todoList').collection('Today').insertOne({
-        inputData
-    });
+    const res = yield client.db('todoList').collection('Today').insertOne(inputData);
 });
 exports.addToday = addToday;
-const UpdateToday = (client, activityName, newData) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('this run? update part');
-    const res = yield client.db("todoList").collection('Today').updateOne({ activity: activityName }, { $set: newData });
-    console.log('this run? update part 2');
+const UpdateToday = (client, activityName) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield client.db("todoList").collection('Today').updateOne({ activity: activityName }, { $set: { done: true } });
+    return res;
 });
 exports.UpdateToday = UpdateToday;
 const deleteToday = (client) => __awaiter(void 0, void 0, void 0, function* () {
     console.log('this run? delete part');
-    const res = yield client.db('todoList').collection('Today').deleteOne({
+    const res = yield client.db('todoList').collection('Today').deleteMany({
         done: true,
     });
 });

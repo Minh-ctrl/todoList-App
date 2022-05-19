@@ -16,33 +16,30 @@ const readToday = async ( con: MongoClient) => {
     return await res.toArray();
 }
 const addRoutine = async (client: MongoClient, inputData: routine) => {
-    const res=  await client.db('todoList').collection('routine').insertOne({
+    const res=  await client.db('todoList').collection('routine').insertOne(
         inputData
-    })
+    )
     return res;
 };
 const addUser = async (client: MongoClient, inputData: user) => { 
-    const res = await client.db('todoList').collection('User').insertOne({
+    const res = await client.db('todoList').collection('User').insertOne(
         inputData
-    });
+    );
 };
 const addToday = async (client: MongoClient, inputData: today) => { 
-    const res = await client.db('todoList').collection('Today').insertOne({
+    const res = await client.db('todoList').collection('Today').insertOne(
         inputData
-    });
+    );
 };
 
-const UpdateToday = async (client: MongoClient, activityName: string, newData: any) => { 
-    console.log('this run? update part')
-    const res = await client.db("todoList").collection('Today').updateOne({activity: activityName}, {$set: newData})
-    console.log('this run? update part 2')
+const UpdateToday = async (client: MongoClient, activityName: string) => { 
+    const res = await client.db("todoList").collection('Today').updateOne({activity: activityName}, {$set: {done: true}})
+    return res;
 }
 const deleteToday= async (client: MongoClient) => { 
-    console.log('this run? delete part')
-    const res = await client.db('todoList').collection('Today').deleteOne({
+    const res = await client.db('todoList').collection('Today').deleteMany({
         done: true,
-    })
-    
+    })    
 }
 //validation function to check structure, have to abstract validation to work for each endpoint;
 //validates the incoming object from POST request body.

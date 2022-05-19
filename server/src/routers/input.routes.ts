@@ -57,6 +57,8 @@ router.post('/addroutine',async function (req: Request, res: Response){
 router.post('/addtoday', async function (req: Request, res: Response){
     let con = await checkCon();
     const today = req.body as today;
+    // console.log(today);
+    console.log(todayRouteValidation(today))
     if(todayRouteValidation(today)){
         await addToday(con , today);
         res.send({
@@ -73,8 +75,17 @@ router.post('/addtoday', async function (req: Request, res: Response){
 router.post('/deletetoday', async function (req: Request, res: Response){
     let con = await checkCon();
     const data = req.body;
-    await UpdateToday(con, data.activity, {done: true});
-    await deleteToday(con);
+    try{
+        await UpdateToday(con, data.activity);
+        await deleteToday(con);
+        res.send({
+            message:'this runs'
+        });
+    }
+    catch (e){
+        console.log(e);
+    }
+
 })
 export {inputData};
 export default router;
