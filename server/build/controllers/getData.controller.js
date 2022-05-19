@@ -44,7 +44,6 @@ const UpdateToday = (client, activityName) => __awaiter(void 0, void 0, void 0, 
 });
 exports.UpdateToday = UpdateToday;
 const deleteToday = (client) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('this run? delete part');
     const res = yield client.db('todoList').collection('Today').deleteMany({
         done: true,
     });
