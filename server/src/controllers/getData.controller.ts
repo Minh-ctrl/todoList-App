@@ -13,7 +13,7 @@ const readRoutine = async (con : MongoClient) => {
 }
 const readToday = async ( con: MongoClient) => {
     const res = (await con).db('todoList').collection('Today').find();
-    return await res.toArray();
+      return await res.toArray();
 }
 const addRoutine = async (client: MongoClient, inputData: routine) => {
     const res=  await client.db('todoList').collection('routine').insertOne(
@@ -31,7 +31,6 @@ const addToday = async (client: MongoClient, inputData: today) => {
         inputData
     );
 };
-
 const UpdateToday = async (client: MongoClient, activityName: string) => { 
     const res = await client.db("todoList").collection('Today').updateOne({activity: activityName}, {$set: {done: true}})
     return res;
