@@ -77,7 +77,7 @@ router.post('/addtoday', function (req, res) {
         let con = yield (0, checkCon_1.checkCon)();
         const today = req.body;
         // console.log(today);
-        console.log((0, Validation_controller_1.todayRouteValidation)(today));
+        // console.log(todayRouteValidation(today));
         if ((0, Validation_controller_1.todayRouteValidation)(today)) {
             yield (0, getData_controller_1.addToday)(con, today);
             res.send({
@@ -88,6 +88,17 @@ router.post('/addtoday', function (req, res) {
         else {
             res.status(418).send({ message: ' bad request' });
         }
+    });
+});
+router.post('/addDefinedRoutine', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let con = yield (0, checkCon_1.checkCon)();
+        const definedRoutine = req.body;
+        yield (0, getData_controller_1.addDefinedRoutine)(con, definedRoutine);
+        res.send({
+            message: 'data have been input',
+            definedRoutine
+        });
     });
 });
 //update & delete
@@ -103,6 +114,22 @@ router.post('/deletetoday', function (req, res) {
         }
         catch (e) {
             console.log(e);
+        }
+    });
+});
+router.post('/increaseDefinedRoutine', function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let con = yield (0, checkCon_1.checkCon)();
+        const definedRoutine = req.body;
+        if (definedRoutine.counter === definedRoutine.limit) {
+            yield (0, getData_controller_1.increaseCounterDefinedRoutine)(con, definedRoutine);
+            res.send({
+                message: 'limit reached, finished',
+                definedRoutine
+            });
+        }
+        else {
+            yield (0, getData_controller_1.increaseCounterDefinedRoutine)(con, definedRoutine);
         }
     });
 });

@@ -9,7 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteToday = exports.readToday = exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+exports.increaseCounterDefinedRoutine = exports.deleteToday = exports.readToday = exports.addDefinedRoutine = exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+//Read
 const readUser = (con) => __awaiter(void 0, void 0, void 0, function* () {
     const res = (yield con).db('todoList').collection('User').find();
     return yield res.toArray();
@@ -25,6 +26,7 @@ const readToday = (con) => __awaiter(void 0, void 0, void 0, function* () {
     return yield res.toArray();
 });
 exports.readToday = readToday;
+//Create
 const addRoutine = (client, inputData) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield client.db('todoList').collection('routine').insertOne(inputData);
     return res;
@@ -38,6 +40,15 @@ const addToday = (client, inputData) => __awaiter(void 0, void 0, void 0, functi
     const res = yield client.db('todoList').collection('Today').insertOne(inputData);
 });
 exports.addToday = addToday;
+const addDefinedRoutine = (client, inputData) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield client.db('todoList').collection('preDefinedRoutine').insertOne(inputData);
+});
+exports.addDefinedRoutine = addDefinedRoutine;
+const increaseCounterDefinedRoutine = (client, inputData) => __awaiter(void 0, void 0, void 0, function* () {
+    const res = yield client.db('todoList').collection('preDefinedRoutine').updateOne({ type: inputData.type, user_id: inputData.user_id }, { $set: { counter: inputData.counter } });
+});
+exports.increaseCounterDefinedRoutine = increaseCounterDefinedRoutine;
+//Delete
 const deleteToday = (client, activityName) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield client.db("todoList").collection('Today').updateOne({ activity: activityName }, { $set: { done: true } });
     const res1 = yield client.db('todoList').collection('Today').deleteMany({

@@ -5,6 +5,13 @@ export interface routine {
     importance: String,
     done: boolean
 }
+export interface preDefinedRoutine{
+    user_id: Number,
+    type: preDefinedRoutineType,
+    counter: Number,
+    limit: Number,
+}
+type preDefinedRoutineType = "Trash" | "Cleaning" | "Study"| "Shopping"
 export interface user {
     id: Number,
     name: String,
