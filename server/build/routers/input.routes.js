@@ -96,8 +96,7 @@ router.post('/deletetoday', function (req, res) {
         let con = yield (0, checkCon_1.checkCon)();
         const data = req.body;
         try {
-            yield (0, getData_controller_1.UpdateToday)(con, data.activity);
-            yield (0, getData_controller_1.deleteToday)(con);
+            yield (0, getData_controller_1.deleteToday)(con, data.activity);
             res.send({
                 message: 'this runs'
             });

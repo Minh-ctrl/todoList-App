@@ -1,5 +1,5 @@
 import express, {Express, Request, Response, Router } from 'express';
-import {readUser, readRoutine, readToday , addRoutine, addUser, addToday, deleteToday, UpdateToday} from '../controllers/getData.controller';
+import {readUser, readRoutine, readToday , addRoutine, addUser, addToday, deleteToday} from '../controllers/getData.controller';
 import { userRouteValidation, routineRouteValidation, todayRouteValidation} from '../controllers/Validation.controller';
 import { checkCon } from '../database/checkCon';
 import { routine, today, user } from '../database/model';
@@ -76,8 +76,7 @@ router.post('/deletetoday', async function (req: Request, res: Response){
     let con = await checkCon();
     const data = req.body;
     try{
-        await UpdateToday(con, data.activity);
-        await deleteToday(con);
+        await deleteToday(con, data.activity);
         res.send({
             message:'this runs'
         });

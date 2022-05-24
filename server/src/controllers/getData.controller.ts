@@ -32,12 +32,10 @@ const addToday = async (client: MongoClient, inputData: today) => {
     );
 };
 
-const UpdateToday = async (client: MongoClient, activityName: string) => { 
+
+const deleteToday = async (client: MongoClient,  activityName: string) => { 
     const res = await client.db("todoList").collection('Today').updateOne({activity: activityName}, {$set: {done: true}})
-    return res;
-}
-const deleteToday= async (client: MongoClient) => { 
-    const res = await client.db('todoList').collection('Today').deleteMany({
+    const res1 = await client.db('todoList').collection('Today').deleteMany({
         done: true,
     })    
 }
@@ -53,4 +51,4 @@ const deleteToday= async (client: MongoClient) => {
 //     const res = await client.db("work").collection("work").updateMany(work,{$set: {newWork}});
 //     return res; 
 // }
-export {readUser, readRoutine, addRoutine, addUser, addToday, readToday, UpdateToday, deleteToday};
+export {readUser, readRoutine, addRoutine, addUser, addToday, readToday, deleteToday};

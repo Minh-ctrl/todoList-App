@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteToday = exports.UpdateToday = exports.readToday = exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
+exports.deleteToday = exports.readToday = exports.addToday = exports.addUser = exports.addRoutine = exports.readRoutine = exports.readUser = void 0;
 const readUser = (con) => __awaiter(void 0, void 0, void 0, function* () {
     const res = (yield con).db('todoList').collection('User').find();
     return yield res.toArray();
@@ -38,13 +38,9 @@ const addToday = (client, inputData) => __awaiter(void 0, void 0, void 0, functi
     const res = yield client.db('todoList').collection('Today').insertOne(inputData);
 });
 exports.addToday = addToday;
-const UpdateToday = (client, activityName) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteToday = (client, activityName) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield client.db("todoList").collection('Today').updateOne({ activity: activityName }, { $set: { done: true } });
-    return res;
-});
-exports.UpdateToday = UpdateToday;
-const deleteToday = (client) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield client.db('todoList').collection('Today').deleteMany({
+    const res1 = yield client.db('todoList').collection('Today').deleteMany({
         done: true,
     });
 });
