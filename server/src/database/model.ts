@@ -5,13 +5,17 @@ export interface routine {
     importance: String,
     done: boolean
 }
-export interface preDefinedRoutine{
+export interface preDefinedRoutine {
     user_id: Number,
     type: preDefinedRoutineType,
     counter: Number,
     limit: Number,
 }
-type preDefinedRoutineType = "Trash" | "Cleaning" | "Study"| "Shopping"
+
+
+
+
+type preDefinedRoutineType = "Trash" | "Cleaning" | "Study" | "Shopping"
 export interface user {
     id: Number,
     name: String,
@@ -24,9 +28,9 @@ export interface events {
     startDate: Date,
     endDate: Date,
 }
-export interface today { 
+export interface today {
     activity: String,
-    description: String, 
+    description: String,
     done: Boolean,
     id: Number,
 }
